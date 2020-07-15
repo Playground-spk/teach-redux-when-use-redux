@@ -1,0 +1,17 @@
+.person {
+    width: 30%;
+    height: 10vh;
+    background-color: rgba(167, 85, 85, 0.781);
+    box-shadow: 3px 3px 3px rgba(160, 120, 120, 0.925);
+    display: block;
+    margin: auto;
+    margin-top: 1.5%;
+
+
+}
+
+.person .item {
+    color: white;
+    font-weight: bolder;
+
+}
