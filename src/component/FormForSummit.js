@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import ActionTypes from "../store/actionType";
+import actionCreators from "../store/action/actionCreators";
 
 function FormForSummit(props) {
   const [name, setName] = useState("");
@@ -8,7 +8,7 @@ function FormForSummit(props) {
 
   const onSummit = (e) => {
     e.preventDefault();
-    props.onSummit({ name, age, id: Date.now() });
+    props.addPersonAndFetchData({ name, age, id: Date.now() });
     setName("");
     setAge("");
   };
@@ -43,7 +43,8 @@ function FormForSummit(props) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSummit: (payload) => dispatch({ type: ActionTypes.ADD_PERSON, payload }),
+    addPersonAndFetchData: (payload) =>
+      dispatch(actionCreators.addPersonAndFetchData(payload)),
   };
 };
 

@@ -1,7 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { connect } from "react-redux";
-import ActionTypes from "../../store/actionType";
+import ActionTypes from "../../store/action/actionType";
+import actionCreators from "../../store/action/actionCreators";
 
 function Person(props) {
   const [index, setIndex] = useState(0);
@@ -11,7 +12,7 @@ function Person(props) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    props.onEdit({ name, age, id: props.id }, props.id);
+    props.onEdit({ name, age }, props.id);
 
     setIndex(0);
   };
@@ -61,8 +62,7 @@ function Person(props) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onEdit: (payload, id) =>
-      dispatch({ type: ActionTypes.EDIT_PERSON, payload, id }),
+    onEdit: (payload, id) => dispatch(actionCreators.EditPerson(payload, id)),
   };
 };
 

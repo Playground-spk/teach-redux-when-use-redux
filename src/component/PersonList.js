@@ -5,7 +5,7 @@ import Person from "./personList/Person";
 function PersonList(props) {
   return (
     <div className="person-list">
-      {props.personList.map((person) => (
+      {props.personList?.map((person) => (
         <Person
           name={person.name}
           age={person.age}

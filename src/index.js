@@ -3,13 +3,18 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import thunk from "redux-thunk";
 
 import { Provider } from "react-redux";
 import { createStore, combineReducers, applyMiddleware } from "redux";
-import personListReducer from "./store/personList";
+
+import personListReducer from "./store/reducer/personList";
+import userReducer from "./store/reducer/user";
+import { loadState, saveState } from "./store/storeService";
 
 const rootReducer = combineReducers({
   personList: personListReducer,
+  user: userReducer,
 });
 
 const logger1 = (store) => {
@@ -29,7 +34,13 @@ const logger2 = (store) => (next) => (action) => {
   console.log("[after next in middleware 2]");
 };
 
-const store = createStore(rootReducer, applyMiddleware(logger1, logger2));
+const persisState = loadState();
+
+const store = createStore(rootReducer, persisState, applyMiddleware(thunk));
+
+store.subscribe(() => {
+  saveState(store.getState());
+});
 
 ReactDOM.render(
   <Provider store={store}>
